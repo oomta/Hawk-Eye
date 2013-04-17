@@ -1,0 +1,8 @@
+Uncompressed                                       Minified
+------------                                       --------
+
+main.css                           -->             main.css
+
+jquery.counter-analog.css |
+jquery.fancybox.css       |        -->             other.css
+tipTip.css                |

@@ -1,0 +1,25 @@
+Uncompressed                               Minified
+------------                               --------
+
+jquery.counter.js   |
+jquery.odoticker.js |
+jquery.tipTip.js    |
+jquery.fancybox.js  |        -->           main.js
+alphabet.js         |
+bubbleText.js       |        
+main.js             |
+
+
+kinetic-v4.js       |
+core.js             |
+rect.js             |
+circle.js           |
+bisect.js           |
+midpoint.js         |
+converge.js         |        -->           game.js
+diameter.js         |
+triangle.js         |
+rightAngle.js       |
+start.js            |
+end.js              |
+controller.js       |
