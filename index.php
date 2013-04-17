@@ -431,7 +431,7 @@
 		<li><a href="javascript:" class="facebook-button" id="postToWall" data-image="<?php echo AppInfo::getUrl('/logo.png'); ?>" data-desc="<?php echo getBestScore($user_id); ?>" data-name="Hawk Eye" data-url="<?php echo AppInfo::getUrl(); ?>"><span class="plus">Post to Wall</span></a></li>
 		<li><a href="javascript:" class="facebook-button apprequests" id="sendRequest" data-data="App request for HawkEye" data-title="Share HawkEye" data-message="Share HawkEye with your friends"><span class="apprequests">Send Requests</span></a></li>
 	    </ul>
-	    <fb:like href="http://radiant-hollows-7958.herokuapp.com" send="true" layout="button_count" width="200" show_faces="true" font="trebuchet ms"></fb:like>
+	    <fb:like href="https://apps.facebook.com/hawk-eye" send="true" layout="button_count" width="200" show_faces="true" font="trebuchet ms"></fb:like>
 	</div>
 
         <div id="bottom-pane">
