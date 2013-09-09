@@ -491,7 +491,7 @@ Kinetic.SceneRenderer.prototype = {
             switch (fillType) {
             case 'COLOR':
                 context.fillStyle = fill;
-                context.fill(context);
+                context.fill();
                 break;
             case 'PATTERN':
                 var repeat = !fill.repeat ? 'repeat' : fill.repeat;
@@ -503,7 +503,7 @@ Kinetic.SceneRenderer.prototype = {
                 }
                 file: ///C:/Users/Eric/Documents/Eric/workspaces/KineticJS/dist/kinetic-current.js
                 context.fillStyle = context.createPattern(fill.image, repeat);
-                context.fill(context);
+                context.fill();
                 break;
             case 'LINEAR_GRADIENT':
                 var grd = context.createLinearGradient(s.x, s.y, e.x, e.y);
@@ -514,7 +514,7 @@ Kinetic.SceneRenderer.prototype = {
                     grd.addColorStop(colorStops[n], colorStops[n + 1]);
                 }
                 context.fillStyle = grd;
-                context.fill(context);
+                context.fill();
 
                 break;
             case 'RADIAL_GRADIENT':
@@ -526,11 +526,11 @@ Kinetic.SceneRenderer.prototype = {
                     grd.addColorStop(colorStops[n], colorStops[n + 1]);
                 }
                 context.fillStyle = grd;
-                context.fill(context);
+                context.fill();
                 break;
             default:
                 context.fillStyle = 'black';
-                context.fill(context);
+                context.fill();
                 break;
             }
 
@@ -594,7 +594,7 @@ Kinetic.HitRenderer.prototype = {
         var context = this.context;
         context.save();
         context.fillStyle = '#' + shape.colorKey;
-        context.fill(context);
+        context.fill();
         context.restore();
     },
     _stroke: function (shape) {

@@ -29,13 +29,6 @@
                 exit();
             }
         }
-        /*
-        $app_using_friends = $facebook->api(array(
-            'method' => 'fql.query',
-            'query' => 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1',
-            'access_token' => $facebook['access_token']
-        ));
-        */
     }
     $app_info = $facebook->api('/' . AppInfo::appID());
     $app_name = idx($app_info, 'name', '');
@@ -62,15 +55,15 @@
             xhr.open('GET', "/fonts/chalkduster.woff");
             xhr.send('');
             // preload images
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/frontcurtain.jpg";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/darkcurtain.jpg";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/canvas-bg.jpg";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/border.jpg";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/icons.png";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/fancybox_loading.gif";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/digits.png";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/picture-sketch.png";
-            new Image().src = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/header-sketch.png";
+            new Image().src = "/images/frontcurtain.jpg";
+            new Image().src = "/images/darkcurtain.jpg";
+            new Image().src = "/images/canvas-bg.jpg";
+            new Image().src = "/images/border.jpg";
+            new Image().src = "/images/icons.png";
+            new Image().src = "/images/fancybox_loading.gif";
+            new Image().src = "/images/digits.png";
+            new Image().src = "/images/picture-sketch.png";
+            new Image().src = "/images/header-sketch.png";
         }, 500);
     </script>
     <style>
@@ -85,13 +78,13 @@
         font-style: normal;
       }
     </style>
-    <link href="https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/favicon.ico" rel="icon" type="image/ico">
-    <link href="https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/stylesheets/minified/main.css" rel="stylesheet">
+    <link href="/images/favicon.ico" rel="icon" type="image/ico">
+    <link href="/stylesheets/minified/main.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript" async></script>
-    <script src='https://www.google.com/jsapi?autoload={"modules":[{"name":"visualization","version":"1","packages":["corechart"]}]}' type="text/javascript">
+    <script src='//www.google.com/jsapi?autoload={"modules":[{"name":"visualization","version":"1","packages":["corechart"]}]}' type="text/javascript">
     </script>
-    <script src="https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/javascript/minified/main.js" type="text/javascript" async></script>
+    <script src="/javascript/minified/main.js" type="text/javascript" async></script>
     <script type="text/javascript" async>
         (function() {
             var l = document.getElementsByTagName('link')[1];
@@ -101,7 +94,7 @@
             css.type = 'text/css';
             l.parentNode.insertBefore(css, l.nextSibling);
             css = document.createElement('link');
-            css.href = "https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/stylesheets/minified/other.css";
+            css.href = "/stylesheets/minified/other.css";
             css.rel  = "stylesheet";
             css.type = 'text/css';
             l.parentNode.insertBefore(css, l.nextSibling);
@@ -171,7 +164,7 @@
                 });
               }
               jQuery.ajax({
-                url: 'http://graph.facebook.com/' + location,
+                url: 'https://graph.facebook.com/' + location,
                 dataType: 'json',
                 timeout: 8000,
                 error: function(jqXHR, textStatus, errorThrown) {setTimeout(function() {getLocation(location);}, 2000);},
@@ -211,8 +204,8 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <div class="leftcurtain"><img src="https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/frontcurtain.jpg" width="479" height="495"></div>
-    <div class="rightcurtain"><img src="https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/frontcurtain.jpg" width="479" height="495"></div>
+    <div class="leftcurtain"><img src="/images/frontcurtain.jpg" width="479" height="495"></div>
+    <div class="rightcurtain"><img src="/images/frontcurtain.jpg" width="479" height="495"></div>
     <div id="welcome">
 
         <?php if (isset($basic)) { ?>
@@ -254,7 +247,7 @@
             <div id="performance-plot-holder" style="width: 600px; height: auto"></div>
         </div>
 
-        <p class="unselectable"><span class="tiptip"></span></p>
+        <p class="unselectable"><span class="tiptip"><span class='about'>About HawkEye</span></span></p>
         <p class="clickable" onclick="nextFrame();">Start</p>
 
         <div id='accuracy-container'>
@@ -269,79 +262,21 @@
 
         <div class="notification sticky hide">
             <p></p>
-            <a class="close" href="javascript:" style="width: 20px; height: 20px; background: url(https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/icons.png) -30px -102px"></a>
+            <a class="close" href="javascript:" style="width: 20px; height: 20px; background: url(/images/icons.png) -30px -102px"></a>
         </div>
 
         <div id="notebook">
             <div class="tabs">
-                <div class="highlighter">Your Accuracy</div>
-                <span class="item">Your Accuracy</span>
+                <div class="highlighter">Top 10 Results</div>
                 <span class="item">Top 10 Results</span>
+                <span class="item">Your Accuracy</span>
             </div>
             <div class="content">
                 <div class="panel">
-                    <div id="score-board">
-                        <div>
-                            <span>Bisect Angle</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Midpoint</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Circle Center</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Parallelogram</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Concurrency</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Circle Diameter</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Right Angle</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                        <div>
-                            <span>Triangle Center</span>
-                            <ul>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div><br>
-                    </div>
                     <div id="topper">
                         <div>
                             <ul>
-                                <li style="background: url(https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/images/icons.png) no-repeat -151px -22px"></li>
+                                <li style="background: url(/images/icons.png) no-repeat -151px -22px"></li>
                                 <li>Error</li>
                                 <li>Time</li>
                             </ul>
@@ -419,6 +354,64 @@
                         <a class="fancybox fancybox.ajax" href="database/top100.php">Top 100 Results</a>
                         <a class="fancybox fancybox.ajax" href="database/recent100.php" style="top: -15px; left: 48px">Most Recent 100 Results</a>
                     </div>
+                    <div id="score-board">
+                        <div>
+                            <span>Bisect Angle</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Midpoint</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Circle Center</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Parallelogram</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Concurrency</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Circle Diameter</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Right Angle</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                        <div>
+                            <span>Triangle Center</span>
+                            <ul>
+                                <li>-</li>
+                                <li>-</li>
+                            </ul>
+                        </div><br>
+                    </div>
                 </div>
             </div>
         </div>
@@ -440,6 +433,6 @@
             Source Code is released in <a class="button-link" href="https://github.com/dibyendu/Hawk-Eye" style="color: #1f49ff; text-decoration: none" target="_blank">GitHub</a> under <a class="button-link" href="http://www.gnu.org/licenses/gpl-3.0-standalone.html" style="color: #1f49ff; text-decoration: none" target="_blank" title="GPLv3">GNU General Public License</a></p>
         </div>
     </div>
-    <script src="https://<?php echo $_ENV['CDN_SUMO_URL'] ?>/javascript/minified/game.js" type="text/javascript" async></script>
+    <script src="/javascript/minified/game.js" type="text/javascript" async></script>
 </body>
 </html>
