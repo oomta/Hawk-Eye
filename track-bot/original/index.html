@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Gentium+Basic' rel='stylesheet' type='text/css'>
+    <title>Profile of Dibyendu Das</title>
+    <style>
+      body {
+	font-family: 'Gentium Basic', serif;
+	color: #002235;
+        margin: 200px 0 0 200px;
+        text-align: left
+      }
+      p {
+        font-size: 24px;
+	margin-bottom: 4px
+      }
+      ul {
+        list-style: none;
+	margin-top: 4px
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Thank You for Visiting ...</h1>
+    <p>Here is what I've received :</p>
+    <ul>
+      <li><b>User Agent</b>: {{ agent }}<li>
+      <li><b>User Ip</b>: {{ ip }}<li>
+      <li><b>User City</b>: {{ city }}<li>
+      <li><b>User State</b>: {{ state }}<li>
+      <li><b>User Country</b>: {{ country }}<li>
+      <li><b>User Geo Location</b>: {{ geo }}<li>
+      <li><b>Visiting Time</b>: {{ time }}<li>
+    </ul>
+  </body>
+</html>
+{% endautoescape %}

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #container div{
+        border: 1px solid #000
+      }
+    </style>
+    <title>Test</title>
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+  </head>
+  <body>
+  	<span class='down'>{{ token }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='up'></span><br>
+  	<input type='text'><br>
+  	<button>Submit</button><br><br>
+
+
+
+    <div id="container" tabindex="1" style="outline: none"></div>
+    <script src="/js/kinetic-v5.0.2.min.js"></script>
+    <script defer="defer">
+      function writeMessage(message) {
+        text.text(message);
+        layer.draw();
+      }
+      
+      var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 600,
+        height: 300
+      });
+      
+      var layer = new Kinetic.Layer();
+
+      var text = new Kinetic.Text({
+        x: 10,
+        y: 10,
+        fontFamily: 'Calibri',
+        fontSize: 24,
+        text: '',
+        fill: 'black'
+      });
+      
+      var box = new Kinetic.Rect({
+        x: 200,
+        y: 200,
+        offset: [50, 25],
+        width: 100,
+        height: 50,
+        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 4,
+        draggable: true
+      });
+
+      // write out drag and drop events
+      box.on('dragstart', function() {
+        writeMessage('dragstart');
+      });
+      box.on('dragmove', function() {
+        pos = stage.getPointerPosition();
+        writeMessage('dragmove\nx: ' + pos.x + ', y: ' + pos.y);
+        $.ajax({
+          type: 'POST',
+          url: '/channel',
+          data: { text: pos.x + ', ' + pos.y, id: location.pathname.slice(-1) },
+          success: function (msg) {
+            console.log('Received message from POST response ----------');
+            console.log(msg);
+            console.log('----------------------------------------------');
+          }
+        });
+      });
+      box.on('dragend', function() {
+        writeMessage('dragend');
+      });
+
+      layer.add(text);
+      layer.add(box);
+      stage.add(layer);
+
+      $('#container').focus();
+
+      var KeyStatus = {pressed: false},
+          KeyCodeMap = {37: {x: -1,y: 0}, 38: {x: 0,y: -1}, 39: {x: 1,y: 0}, 40: {x: 0,y: 1}},
+          CurrentKey = null,
+          velocity = 150,
+          anim = new Kinetic.Animation(function(frame) {
+            dist = velocity * (frame.timeDiff / 1000);
+            box.move({x: dist * KeyCodeMap[CurrentKey].x, y: dist * KeyCodeMap[CurrentKey].y});
+          }, layer);
+
+      $("#container").bind('keydown', function(event) {
+        console.log(event.which + ' - down')
+        if (! KeyStatus.pressed) {
+          KeyStatus.pressed = true;
+          CurrentKey = $.inArray(event.which, [37, 38, 39, 40]) != -1 ? event.which : null;
+          if ($.inArray(event.which, [37, 38, 39, 40]) != -1) {
+            d = new Date();
+            $.ajax({
+              type: 'POST',
+              url: '/channel',
+              data: { key: event.which, pressed: true, time: Date.parse(d.toGMTString()) + d.getMilliseconds(), id: location.pathname.slice(-1) }
+            });
+            anim.start();
+          }
+        }
+      });
+      $("#container").bind('keyup', function(event) {
+        console.log(event.which + ' - up')
+        if (KeyStatus.pressed) {
+          KeyStatus.pressed = false;
+          if ($.inArray(event.which, [37, 38, 39, 40]) != -1) {
+            d = new Date();
+            $.ajax({
+              type: 'POST',
+              url: '/channel',
+              data: { key: event.which, pressed: false, time: Date.parse(d.toGMTString()) + d.getMilliseconds(), id: location.pathname.slice(-1) }
+            });
+            anim.stop();
+          }
+        }
+      });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  	<script type="text/javascript">
+      channel = new goog.appengine.Channel('{{ token }}');
+      socket = channel.open();
+      socket.onopen = function () {alert('opened')};
+      socket.onmessage = function (msg) {
+       var data = $.parseJSON(msg.data),
+           d = new Date();
+       $('span.' + (data.pressed === 'true' ? 'down' : 'up')).html(data.key + ' ' + (data.pressed === 'true' ? 'down' : 'up') + ' Latency = ' + (Date.parse(d.toGMTString()) + d.getMilliseconds() - parseInt(data.time)) + 'ms');
+       data.key = parseInt(data.key);
+       CurrentKey = $.inArray(data.key, [37, 38, 39, 40]) != -1 ? data.key : null;
+       if (data.pressed === 'true')
+        anim.start();
+       else
+        anim.stop();
+      };
+      socket.onerror = function (err) {
+    	 alert('error');
+    	 alert(err.description);
+    	 alert(err.code);
+      };
+      socket.onclose = function () {alert('closed')};
+  	</script>
+  	<script type="text/javascript">
+      $( document ).ready(function () {
+        $('button').click(function () {
+          $.ajax({
+  				  type: 'POST',
+  				  url: '/channel',
+  				  data: { text: $('input')[0].value, id: location.pathname.slice(-1) },
+  				  success: function (msg) {
+              console.log('Received message from POST response ----------');
+              console.log(msg);
+              console.log('----------------------------------------------');
+            }
+          });
+        });
+      });
+  	</script>
+  </body>
+</html>

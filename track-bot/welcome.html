@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>Welcome</title>
+  </head>
+  <body>
+    <p>{{ text }}</p><br><br>
+    <p>{{ test }}</p><br><br>
+    <p>
+    	{% for k in data %}
+    	{{ k }}&nbsp;:&nbsp;&nbsp;{{ data[k] }}<br><br>
+    	{% endfor %}
+    </p>
+  </body>
+</html>

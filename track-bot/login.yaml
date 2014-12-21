@@ -1,0 +1,16 @@
+application: track-bot
+module: login
+version: 1
+runtime: python27
+threadsafe: true
+api_version: 1
+handlers:
+- url: /.+
+  script: login.login.callbacks
+- url: /
+  script: login.login.application
+libraries:
+- name: jinja2
+  version: "latest"
+- name: webapp2
+  version: "latest"

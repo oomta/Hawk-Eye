@@ -1,0 +1,4 @@
+backends:
+- name: compute
+  class: B1
+  instances: 1

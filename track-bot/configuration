@@ -1,0 +1,12 @@
+my1: lol1
+my2: lol2
+login_cookie_expiry:            1   # in years
+secure_cookie_pass_phrase:      qwerty
+csrf_prevention_token:          abcde
+client_secrets_file:            login/client_secrets.yaml
+token_mismatch_message:         Token doesn't match
+user_denial_message:            You've denied access
+url_fetch_error_message:        'Unable to fetch URL : {url}'
+login_module:
+    name:                       login
+    protocol:                   http  # omit this property to take the current scheme (for dev server always set to http)
